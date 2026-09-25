@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geppo Dev — Indie Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0D0F1A;
+      --bg2:       #141728;
+      --gold:      #F5C842;
+      --teal:      #4ECDC4;
+      --text:      #E8E8F0;
+      --muted:     #7B7D9A;
+      --border:    #1E2136;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* NOISE TEXTURE */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 6rem;
+    }
+
+    /* HEADER */
+    header {
+      margin-bottom: 5rem;
+    }
+
+    .dice-row {
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.1em;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 8vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 span {
+      color: var(--gold);
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin-top: 1rem;
+      max-width: 42ch;
+    }
+
+    .tagline strong {
+      color: var(--teal);
+      font-weight: 500;
+    }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+
+    /* SECTION TITLE */
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    /* PROJECT CARD */
+    .project {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .project:hover {
+      border-color: var(--gold);
+    }
+
+    .project-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .project-badge {
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .badge-live {
+      background: rgba(78, 205, 196, 0.15);
+      color: var(--teal);
+      border: 1px solid rgba(78, 205, 196, 0.3);
+    }
+
+    .badge-soon {
+      background: rgba(245, 200, 66, 0.1);
+      color: var(--gold);
+      border: 1px solid rgba(245, 200, 66, 0.25);
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-link {
+      font-size: 0.85rem;
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .project-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ABOUT */
+    .about-text {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 55ch;
+    }
+
+    .about-text p + p {
+      margin-top: 0.75rem;
+    }
+
+    /* TAGS */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      background: var(--border);
+      color: var(--muted);
+    }
+
+    /* SUPPORT */
+    .support-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .support-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 35ch;
+    }
+
+    .support-text strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .btn-kofi {
+      display: inline-block;
+      background: var(--gold);
+      color: #0D0F1A;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: 8px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn-kofi:hover { opacity: 0.85; }
+
+    /* FOOTER */
+    footer {
+      margin-top: 4rem;
+      color: var(--border);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 480px) {
+      .support-box { flex-direction: column; }
+      .project-top { flex-direction: column; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="dice-row">🎲</div>
+    <h1>Geppo<span>.</span>dev</h1>
+    <p class="tagline">
+      Sviluppatore di giorno, <strong>indie developer</strong> per passione.<br>
+      Trasformo idee semplici in app e giochi che la gente usa davvero.
+    </p>
+  </header>
+
+  <hr class="divider">
+
+  <!-- PROGETTI -->
+  <section>
+    <p class="section-label">Progetti</p>
+
+    <div class="project">
+      <div class="project-top">
+        <span class="project-name">🎲 Farkle Villains</span>
+        <span class="project-badge badge-live">Live</span>
+      </div>
+      <p class="project-desc">
+        Il classico gioco di dadi Farkle con un twist: villain con poteri speciali (Sauron incluso), multiplayer locale, personalizzazione avatar e dadi, classifica cloud. Gratis, senza ads, installabile come app.
+      </p>
+      <a class="project-link" href="https://farkle-villains.netlify.app" target="_blank" rel="noopener">
+        Gioca ora — farkle-villains.netlify.app
+      </a>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <span class="project-name">⚔️ D&D Companion</span>
+        <span class="project-badge badge-soon">In sviluppo</span>
+      </div>
+      <p class="project-desc">
+        Un companion digitale per sessioni di D&D — dadi, tavolo virtuale, schede personaggio e molto altro. Il prossimo capitolo del progetto.
+      </p>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <span class="project-name">⚽ Subbuteo</span>
+        <span class="project-badge badge-soon">Coming soon</span>
+      </div>
+      <p class="project-desc">
+        Il classico gioco da tavolo del calcio balilla in versione digitale. Presto disponibile.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ABOUT -->
+  <section>
+    <p class="section-label">Chi sono</p>
+    <div class="about-text">
+      <p>Programmatore C# in ambiente professionale, con la passione per costruire cose nuove nel tempo libero. Mi piace prendere un'idea semplice e vedere dove riesce ad arrivare da sola.</p>
+      <p>Nerd di professione, gamer strategico, master D&D occasionale. Il filo rosso è sempre lo stesso: trasformare la complessità in qualcosa di intuitivo.</p>
+    </div>
+    <div class="tags">
+      <span class="tag">HTML / CSS / JS</span>
+      <span class="tag">C# / Dynamics 365</span>
+      <span class="tag">Supabase</span>
+      <span class="tag">PWA</span>
+      <span class="tag">D&D 🎲</span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SUPPORT -->
+  <section>
+    <p class="section-label">Supporta il progetto</p>
+    <div class="support-box">
+      <div class="support-text">
+        <strong>Offrimi un caffè ☕</strong>
+        Ogni contributo va dritto nel forziere — nuovi pack cosmetici, feature e prossimi progetti.
+      </div>
+      <a class="btn-kofi" href="https://ko-fi.com/geppo" target="_blank" rel="noopener">
+        ☕ Ko-fi
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>Geppo Dev · fatto con troppo caffè e qualche tiro di dado fortunato 🎲</p>
+  </footer>
+
+</div>
+</body>
+</html>
