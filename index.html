@@ -217,10 +217,17 @@
       flex-shrink: 0;
     }
     .btn-kofi:hover { opacity: 0.85; }
-    footer { margin-top: 4rem; color: var(--border); font-size: 0.8rem; }
-    @media (max-width: 480px) {
+    footer { margin-top: 4rem; color: var(--muted); font-size: 0.8rem; }
+    @media (max-width: 600px) {
+      .wrap { padding: 2.5rem 1rem 4rem; }
+      h1 { font-size: clamp(2.2rem, 11vw, 3rem); }
+      .tagline { font-size: 1rem; }
+      .project-farkle .project-inner { padding: 8rem 1rem 1rem; }
+      .project-farkle { min-height: 160px; }
       .support-box { flex-direction: column; }
       .project-top { flex-direction: column; gap: 0.5rem; }
+      .tags { gap: 0.4rem; }
+      .tag { font-size: 0.72rem; }
     }
   </style>
 </head>
@@ -231,7 +238,7 @@
     <div class="dice-row">🎲</div>
     <h1>Geppo<span>.</span>dev</h1>
     <p class="tagline">
-      Sviluppatore di giorno, <strong>indie developer</strong> per passione.<br>
+      Sviluppatore di giorno, <strong>developer</strong> per passione.<br>
       Trasformo idee semplici in app e giochi che la gente usa davvero.
     </p>
   </header>
