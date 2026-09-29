@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Geppo Dev — Indie Developer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Patrick+Hand&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg:        #0D0F1A;
@@ -218,6 +218,112 @@
     }
     .btn-kofi:hover { opacity: 0.85; }
     footer { margin-top: 4rem; color: var(--muted); font-size: 0.8rem; }
+
+    /* FEEDBACK */
+    .fb-intro { color: var(--muted); font-size: 0.92rem; margin-bottom: 1.5rem; max-width: 52ch; }
+    .fb-form {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: grid;
+      gap: 1.1rem;
+    }
+    .fb-field { display: grid; gap: 0.4rem; }
+    .fb-field label { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; color: #fff; letter-spacing: 0.03em; }
+    .fb-field label small { font-family: 'Inter', sans-serif; font-weight: 400; color: var(--muted); letter-spacing: 0; }
+    .fb-field input, .fb-field select, .fb-field textarea {
+      width: 100%;
+      font: inherit;
+      font-size: 16px; /* evita lo zoom automatico su iPhone */
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.7rem 0.9rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .fb-field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23F5C842' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.9rem center;
+      padding-right: 2.4rem;
+      cursor: pointer;
+    }
+    .fb-field input:focus, .fb-field select:focus, .fb-field textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(245,200,66,0.15);
+    }
+    /* La lavagna */
+    .fb-board {
+      position: relative;
+      border-radius: 12px;
+      padding: 10px;
+      background: linear-gradient(135deg, #6b4a2b, #4a321c);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.4), 0 6px 18px rgba(0,0,0,0.35);
+    }
+    .fb-field .fb-board textarea {
+      min-height: 190px;
+      resize: vertical;
+      border: none;
+      border-radius: 6px;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.05), transparent 60%),
+        #1f3a2c;
+      color: #f2f2e8;
+      font-family: 'Patrick Hand', 'Chalkboard SE', 'Comic Sans MS', cursive;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+      text-shadow: 0 0 1px rgba(255,255,255,0.35);
+    }
+    .fb-field .fb-board textarea::placeholder { color: rgba(242,242,232,0.4); }
+    .fb-field .fb-board textarea:focus { box-shadow: 0 0 0 2px rgba(245,200,66,0.5); }
+    .fb-chalk {
+      position: absolute;
+      right: 18px;
+      bottom: 2px;
+      width: 34px; height: 7px;
+      border-radius: 3px;
+      background: #f5f5ef;
+      box-shadow: -44px 0 0 #f5c842;
+      opacity: 0.85;
+    }
+    .fb-counter { font-size: 0.75rem; color: var(--muted); text-align: right; }
+    .fb-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .fb-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .btn-send {
+      background: var(--gold);
+      color: #0D0F1A;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.6rem;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn-send:hover { opacity: 0.88; }
+    .btn-send:active { transform: scale(0.97); }
+    .btn-send:disabled { opacity: 0.5; cursor: wait; }
+    .fb-alt { font-size: 0.8rem; color: var(--muted); }
+    .fb-alt a { color: var(--teal); }
+    .fb-status { font-size: 0.9rem; border-radius: 10px; padding: 0.75rem 1rem; display: none; }
+    .fb-status.ok  { display: block; background: rgba(78,205,196,0.12); color: var(--teal); border: 1px solid rgba(78,205,196,0.3); }
+    .fb-status.err { display: block; background: rgba(255,107,107,0.1); color: #ff8a8a; border: 1px solid rgba(255,107,107,0.3); }
+    .nav-feedback { display: inline-block; margin-top: 1.5rem; font-size: 0.85rem; color: var(--teal); text-decoration: none; border: 1px solid rgba(78,205,196,0.3); border-radius: 20px; padding: 0.3rem 0.9rem; }
+    .nav-feedback:hover { background: rgba(78,205,196,0.1); }
+    .project-links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    html { scroll-behavior: smooth; }
+    #feedback { scroll-margin-top: 1.5rem; }
+    @media (max-width: 600px) {
+      .fb-form { padding: 1.1rem; }
+      .btn-send { width: 100%; }
+    }
     @media (max-width: 600px) {
       .wrap { padding: 2.5rem 1rem 4rem; }
       h1 { font-size: clamp(2.2rem, 11vw, 3rem); }
@@ -241,6 +347,7 @@
       Sviluppatore di giorno, <strong>developer</strong> per passione.<br>
       Trasformo idee semplici in app e giochi che la gente usa davvero.
     </p>
+    <a class="nav-feedback" href="#feedback">✉️ Lascia un feedback</a>
   </header>
 
   <hr class="divider">
@@ -258,9 +365,12 @@
         <p class="project-desc">
           Il classico gioco di dadi Farkle con un twist: villain con poteri speciali (Sauron incluso), multiplayer locale, personalizzazione avatar e dadi, classifica cloud. Gratis, niente ads.
         </p>
-        <a class="project-link" href="https://farkle-villains.netlify.app" target="_blank" rel="noopener">
-          Gioca ora — farkle-villains.netlify.app
-        </a>
+        <div class="project-links">
+          <a class="project-link" href="https://farkle-villains.netlify.app" target="_blank" rel="noopener">
+            Gioca ora — farkle-villains.netlify.app
+          </a>
+          <a class="project-link" href="?game=farkle#feedback">Lascia un feedback →</a>
+        </div>
       </div>
     </div>
 
@@ -316,6 +426,54 @@
 
   <hr class="divider">
 
+  <section id="feedback">
+    <p class="section-label">Feedback</p>
+    <p class="fb-intro">
+      Hai trovato un bug, hai un'idea o vuoi solo dirmi che un villain è troppo forte? Scrivimi qui: leggo tutto, anche le lamentele sui Farkle sfortunati.
+    </p>
+
+    <form class="fb-form" id="fbForm" novalidate>
+      <div class="fb-field">
+        <label for="fbGame">Scegli il gioco</label>
+        <select id="fbGame" name="gioco" required></select>
+      </div>
+
+      <div class="fb-field">
+        <label for="fbSubject">Oggetto</label>
+        <input id="fbSubject" name="oggetto" type="text" maxlength="120" required>
+      </div>
+
+      <div class="fb-field">
+        <label for="fbEmail">La tua email <small>(facoltativa, solo se vuoi una risposta)</small></label>
+        <input id="fbEmail" name="email" type="email" autocomplete="email" placeholder="nome@esempio.it">
+      </div>
+
+      <div class="fb-field">
+        <label for="fbMessage">Descrizione</label>
+        <div class="fb-board">
+          <textarea id="fbMessage" name="descrizione" maxlength="3000" required
+            placeholder="Scrivi qui il problema o il suggerimento... (cosa è successo, su quale dispositivo, come riprodurlo)"></textarea>
+          <span class="fb-chalk" aria-hidden="true"></span>
+        </div>
+        <div class="fb-counter"><span id="fbCount">0</span> / 3000</div>
+      </div>
+
+      <!-- anti-spam: i bot compilano questo campo, gli umani no -->
+      <div class="fb-hp" aria-hidden="true">
+        <label>Non compilare <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <div class="fb-status" id="fbStatus" role="status" aria-live="polite"></div>
+
+      <div class="fb-actions">
+        <button type="submit" class="btn-send" id="fbSend">Invia feedback 🎲</button>
+        <span class="fb-alt">oppure scrivi a <a id="fbMailto" href="mailto:privacygamegeppo@gmail.com">privacygamegeppo@gmail.com</a></span>
+      </div>
+    </form>
+  </section>
+
+  <hr class="divider">
+
   <section>
     <p class="section-label">Supporta il progetto</p>
     <div class="support-box">
@@ -334,5 +492,112 @@
   </footer>
 
 </div>
+<script>
+(function () {
+  /* ===== CONFIG =====
+     Per aggiungere un gioco: una riga qui sotto. L'id si usa nel link diretto:
+     https://geppo4.github.io/WebSiteGeppo/?game=farkle#feedback  */
+  var FEEDBACK_EMAIL = 'privacygamegeppo@gmail.com';
+  var GAMES = [
+    { id: 'farkle', name: 'Farkle Villains' }
+    // { id: 'kickroll', name: 'Kick & Roll' },
+    // { id: 'dnd',      name: 'D&D Companion' },
+  ];
+  var ENDPOINT = 'https://formsubmit.co/ajax/' + FEEDBACK_EMAIL;
+
+  var form    = document.getElementById('fbForm');
+  var sel     = document.getElementById('fbGame');
+  var subj    = document.getElementById('fbSubject');
+  var email   = document.getElementById('fbEmail');
+  var msg     = document.getElementById('fbMessage');
+  var count   = document.getElementById('fbCount');
+  var status  = document.getElementById('fbStatus');
+  var sendBtn = document.getElementById('fbSend');
+  var mailto  = document.getElementById('fbMailto');
+  var subjectTouched = false;
+
+  GAMES.forEach(function (g) {
+    var o = document.createElement('option');
+    o.value = g.id; o.textContent = g.name;
+    sel.appendChild(o);
+  });
+
+  function gameName() {
+    var g = GAMES.filter(function (x) { return x.id === sel.value; })[0];
+    return g ? g.name : '';
+  }
+  function autoSubject() { return 'Feedback ' + gameName(); }
+  function updateMailto() {
+    mailto.href = 'mailto:' + FEEDBACK_EMAIL +
+      '?subject=' + encodeURIComponent(subj.value || autoSubject()) +
+      '&body=' + encodeURIComponent(msg.value);
+  }
+  function show(type, text) {
+    status.className = 'fb-status ' + type;
+    status.textContent = text;
+  }
+
+  // preselezione dal link: ?game=farkle
+  var params = new URLSearchParams(location.search);
+  var pre = (params.get('game') || '').toLowerCase();
+  if (GAMES.some(function (g) { return g.id === pre; })) sel.value = pre;
+  subj.value = autoSubject();
+  updateMailto();
+
+  sel.addEventListener('change', function () {
+    if (!subjectTouched) subj.value = autoSubject();
+    updateMailto();
+  });
+  subj.addEventListener('input', function () { subjectTouched = subj.value.trim() !== ''; updateMailto(); });
+  msg.addEventListener('input', function () { count.textContent = msg.value.length; updateMailto(); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (form._honey && form._honey.value) return; // bot
+    if (msg.value.trim().length < 5) { show('err', 'Scrivi almeno due parole sulla lavagna 🙂'); msg.focus(); return; }
+    if (email.value && !email.checkValidity()) { show('err', 'L\'email non sembra valida.'); email.focus(); return; }
+    if (!subj.value.trim()) subj.value = autoSubject();
+
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Invio in corso…';
+    status.className = 'fb-status';
+
+    var data = {
+      _subject: subj.value.trim(),
+      _template: 'table',
+      _captcha: 'false',
+      Gioco: gameName(),
+      Oggetto: subj.value.trim(),
+      Email: email.value.trim() || '(non indicata)',
+      Descrizione: msg.value.trim(),
+      Dispositivo: navigator.userAgent
+    };
+    if (email.value.trim()) data._replyto = email.value.trim();
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+    .then(function (res) {
+      if (res.ok && String(res.j.success) === 'true') {
+        show('ok', 'Feedback inviato! Grazie, lo leggerò presto. 🎲');
+        msg.value = ''; count.textContent = '0';
+        updateMailto();
+      } else {
+        throw new Error(res.j && res.j.message);
+      }
+    })
+    .catch(function () {
+      show('err', 'Invio non riuscito. Usa il link email qui sotto: il messaggio è già precompilato.');
+    })
+    .finally(function () {
+      sendBtn.disabled = false;
+      sendBtn.textContent = 'Invia feedback 🎲';
+    });
+  });
+})();
+</script>
 </body>
 </html>
