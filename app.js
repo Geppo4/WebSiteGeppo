@@ -18,7 +18,7 @@
       if (entry.isIntersecting) nav.querySelectorAll('a').forEach(a => a.classList.toggle('current', a.hash === '#' + entry.target.id));
     });
   }, { rootMargin: '-20% 0px -55% 0px', threshold: 0 });
-  document.querySelectorAll('#progetti, #chi-sono, #feedback').forEach(s => observer.observe(s));
+  document.querySelectorAll('#progetti, #chi-sono, #feedback, #social').forEach(s => observer.observe(s));
   const filters = document.querySelectorAll('[data-filter]');
   filters.forEach(button => button.addEventListener('click', () => {
     filters.forEach(b => { b.classList.toggle('active', b === button); b.setAttribute('aria-pressed', String(b === button)); });
